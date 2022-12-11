@@ -12,6 +12,7 @@ import json
 import pandas as pd
 import numpy as np
 from glob import glob
+from pathlib import Path
 
 class ParseSettings(object):
 	def __init__(self, args):
@@ -230,7 +231,7 @@ def build_parser():
 	parser.add_argument('--out-dir', metavar='directory', action='store', dest='out_dir',
 		help='Output directory. Script will find the subject ID and store the output in /directory/sub-<subject ID>')
 
-	parser.add_argument('fmriprep', action='store', type=str, 
+	parser.add_argument('fmriprep', action='store', type=Path, 
 		help='Fmriprep derivatives directory.')
 
 	return parser
@@ -238,13 +239,14 @@ def build_parser():
 def Main():
 	parser = build_parser()
 	args = parser.parse_args()
-	settings = ParseSettings(args)
-	if not settings.fd and not settings.dvars:
-		print('Why are you here?')
-		sys.exit(1)
+	print(vars(args))
+	# settings = ParseSettings(args)
+	# if not settings.fd and not settings.dvars:
+	# 	print('Why are you here?')
+	# 	sys.exit(1)
 
-	censor = CreateCensor(settings)
-	censor.run()
+	# censor = CreateCensor(settings)
+	# censor.run()
 
 if __name__ == '__main__':
 	Main()
