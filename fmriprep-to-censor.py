@@ -215,9 +215,6 @@ class CreateCensor(object):
 def build_parser():
 	parser = argparse.ArgumentParser(description=__doc__,add_help = True)
 
-	parser.add_argument('--fmriprep', action='store', dest='fmriprep',
-		help='Fmriprep derivative directory')
-
 	parser.add_argument('--dvars', metavar='thresh', action='store', dest='dvars', type=float, default=None,
 		help='DVARS threshold for censoring purposes')
 
@@ -232,6 +229,9 @@ def build_parser():
 
 	parser.add_argument('--out-dir', metavar='directory', action='store', dest='out_dir',
 		help='Output directory. Script will find the subject ID and store the output in /directory/sub-<subject ID>')
+
+	parser.add_argument('fmriprep', action='store', type=str, 
+		help='Fmriprep derivatives directory.')
 
 	return parser
 
