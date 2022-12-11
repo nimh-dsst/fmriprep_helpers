@@ -41,14 +41,11 @@ class ParseSettings(object):
 		'''
 		checks if we're dealing with old or new fmriprep directory structures
 		'''
-		subjs = glob(f'{fmriprep}/sub-*')
-		subjs = [i.rsplit('/',1)[1] for i in subjs]
 		old = False
-		if os.path.isdir(f"{fmriprep}/{subjs[0]}/fmriprep"):
+		if os.path.isdir(f"{fmriprep}/{self.subjs[0]}/fmriprep"):
 			old = True
 
 		return old
-
 
 	def _mkdir_out(self,out_dir):
 		'''
@@ -228,7 +225,7 @@ def build_parser():
 	parser.add_argument('--stringent', action='store_true', dest='stringent',
 		help='Segment length that should be preseved for censoring.')
 
-	parser.add_argument('--out-dir', metavar='directory', action='store', dest='out_dir',
+	parser.add_argument('--out-dir', metavar='directory', action='store', dest='out_dir', type=Path,
 		help='Output directory. Script will find the subject ID and store the output in /directory/sub-<subject ID>')
 
 	parser.add_argument('fmriprep', action='store', type=Path, 
@@ -239,8 +236,7 @@ def build_parser():
 def Main():
 	parser = build_parser()
 	args = parser.parse_args()
-	print(vars(args))
-	# settings = ParseSettings(args)
+	settings = ParseSettings(args)
 	# if not settings.fd and not settings.dvars:
 	# 	print('Why are you here?')
 	# 	sys.exit(1)
