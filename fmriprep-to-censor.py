@@ -51,15 +51,14 @@ class ParseSettings(object):
 		'''
 		make top level out dir
 		'''
-		if not os.path.isdir(out_dir):
+		if not out_dir.exists():
 			try:
-				os.mkdir(out_dir)
-				return out_dir
+				out_dir.mkdir()
 			except:
 				print('Error creating output directory')
 				sys.exit(1)
-		else:
-			return out_dir
+
+		return out_dir
 
 	def _get_subjs(self,fmriprep):
 		'''
