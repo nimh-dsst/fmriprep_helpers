@@ -64,8 +64,8 @@ class ParseSettings(object):
 		'''
 		get all the subjects in the fmriprep dir
 		'''
-		subjs = glob(f'{fmriprep}/sub-*')
-		subjs = [i.rsplit('/',1)[1] for i in subjs]
+		subjs = fmriprep.glob('sub-*')
+		subjs = [i.name for i in list(subjs)]
 
 		return subjs
 
